@@ -18,6 +18,10 @@ Al het database verkeerd word geregeld door SqlAlchemy en PsychoPg. In mijn geva
 
 Als het goed is kan de admin account posts maken, editten en posts verwijderen. Het author account kan dit  ook, alleen heeft dit account alleen de rechten om dat te doen voor de posts die het account zelf geplaatst heeft.
 
+### Pytest
+Ik heb een minimale implementatie gedaan van PyTest. Hiermee test ik een paar van de endpoints.
+Om deze test te draaien kun je in de root directory van het project het commando *pytest* draaien.
+
 De applicatie is verre van perfect, en heeft hier en daar nog wat gekke quirks.
 Als ik er wat meer tijd aan had besteed dan de voorgeschreven twee dagdelen zou ik op diverse plekken wat betere foutafhandeling hebben geïmplementeerd.
 Verder zou ik de tests wat hebben uitgebreid zodat de coverage wat omhoog gaat.
