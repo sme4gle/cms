@@ -30,4 +30,5 @@ Verder zou ik de tests wat hebben uitgebreid zodat de coverage wat omhoog gaat.
 * Betere Unit tests
 * Betere fout afhandeling en http responses (foute requests geven nu een redirect met http code 307 waar je misschien een 404 of 401 verwacht)
 * Degelijkere implementatie van password hashing d.m.v. een library waarmee je snel en makkelijk hashes en salts kan genereren.
-* Ik zou het CMS gedeelte (gebruikerbeheer, postbeheer) lostrekken van de "app" blueprint en hier een apparte blueprint van maken om het beheerbaar te houden. 
+* Ik zou het CMS gedeelte (gebruikerbeheer, postbeheer) lostrekken van de "app" blueprint en hier een apparte blueprint van maken om het beheerbaar te houden.
+* De templates wél compleet maken. Ik heb nu bijvoorbeeld geen degelijke footer en sidebar geïmplementeerd omdat ik het functionele gedeelte even belangrijker vond.
