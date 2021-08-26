@@ -1,0 +1,116 @@
+{% extends 'master.html' %}
+{% block head_end %}
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12 bg-light mt-3 p-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>{{ post.title }}</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {# for ease of use we are assuming admins and content creators do not create posts with malicious tags which we have not filtered out. #}
+                                {{ post.content | safe }}
+                            </div>
+                        </div>
+                        <div class="row pt-1">
+                            <div class="col-md-6">
+                                {% if post.edited_date > post.created_date %}
+                                    Laatst bijgewerkt op: {{ post.edited_date }} door {{ post.editor.username }}
+                                {% else %}
+                                    {# Todo: properly format this date. #}
+                                    Geplaatst op: {{ post.created_date }} door {{ post.creator.username }}
+                                {% endif %}
+                                {% if user and user.user_role == 3 or user.id == post.creator.id %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="/edit_post/{{ post.id }}">bewerken</a>
+                                            <a href="/delete_post/{{ post.id }}">verwijderen</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% macro commentBlock(comment, line_left=False) %}
+                        <div class="row {% if line_left %}line-left{% endif %}">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ comment.content }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-secondary">
+                                        {% if comment.author %}
+                                            {% set author = comment.author.username %}
+                                        {% else %}
+                                            {% set author = 'Anonymous' %}
+                                        {% endif %}
+                                        <a href="javascript:;" class="parent"
+                                           data-parent="{{ comment.id }}">Beantwoord</a> {{ author }}
+                                        - {{ comment.created_date }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pl-3">
+                            <div class="col-md-12">
+                                {% for com in post.comments if com.parent == comment.id %}
+                                    {{ commentBlock(com, line_left=True) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endmacro %}
+
+                    <div class="col-md-12 bg-light mt-3 p-2">
+                        {% for comment in post.comments if not comment.parent %}
+                            {{ commentBlock(comment) }}
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-md-12 bg-light mt-3 p-2">
+                        {% if not post.comments %}
+                            Er zijn nog geen reacties op deze post geplaatst, ben jij de eerste?
+                        {% endif %}
+                        <form action="/submit_comment/{{ post.id }}" method="post" id="commentForm">
+                            <div class="form-group">
+                                <input type="hidden" name="parent" id="parent" value=""/>
+                                {% if user %}
+                                    <input type="hidden" id="user_id" name="user_id" value="{{ user.id }}">
+                                {% endif %}
+                                <label for="comment">Reactie</label>
+                                <textarea name="content" id="content" cols="30" rows="10"
+                                          class="form-control"></textarea>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="verzenden" class="btn btn-success col-md-12">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 sidebar">
+                sss
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.parent').on('click', function () {
+                var parent = $(this).attr("data-parent");
+                if (parent) {
+                    $('#parent').val(parent);
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="nl">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="/static/style/master.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="d-flex row justify-content-center">
+            <div class="col-md-4 bg-light">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="loginForm">
+                            <div class="col-md-12 pt-2 pb-2">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="username" class="form-label" >Username</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="text" name="username" id="usernameInput" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="email" class="form-label" >Email</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="email" name="email" id="emailInput" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group pb-3">
+                                    <div class="col-md-12">
+                                        <label for="password" class="form-label">Password</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="password" name="password" id="passwordInput" class="form-control">
+                                    </div>
+                                </div>
+                                <span class="text-danger display-none warning"></span>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Registreren" class="btn btn-success col-md-12">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault();
+            username = $('#usernameInput').val();
+            password = $('#passwordInput').val();
+            email = $('#emailInput').val();
+
+            $.ajax({
+                'url': '/do_register',
+                'type': 'POST',
+                'data': JSON.stringify({"username": username, "password": password, 'email': email}),
+                'dataType': 'json',
+                'contentType': 'application/json',
+                'success': function(resp) {
+                    var _response = resp['response']
+                    if(_response === 'Registration succesful'){
+                        location.href = '/login';
+                    }
+                },
+                'error': function(resp) {
+                    var _response = resp['responseJSON']['response'];
+                    if (_response === 'Required fields are missing.')  {
+                        $('.warning').html('Verplichte velden missen.');
+                    } else if (_response === 'A user with that username or email exists.') {
+                        $('.warning').html('Er bestaat al een user met deze email of username.');
+                    } else {
+                        $('.warning').html('Gebruikersnaam of wachtwoord incorrect.');
+                    }
+                }
+            })
+        })
+    })
+</script>
+</body>

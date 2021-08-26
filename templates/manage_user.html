@@ -1,0 +1,71 @@
+{% extends 'master.html' %}
+{% block head_end %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <form action="/manage_user_submit/{{ _user.id }}" method="post">
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="username">Gebruikersnaam</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="username" id="username" class="form-control" value="{{ _user.username }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="email" name="email" id="email" class="form-control" value="{{ _user.email }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="role">Gebruikersgroep</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select name="user_role" id="user_role" class="form-control">
+                                    {% for key, value in user_roles.items() %}
+                                        <option value="{{ key }}" {% if _user.user_role == key %}selected{% endif %}>{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pb-2">
+                        <div class="row">
+                            <label for="password">Wachtwoord</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-success col-md-12" value="Opslaan">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 sidebar">
+                <div class="row">
+                    <div class="col-md-12 mt-3 pt-2">
+                        Lege sidebar
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

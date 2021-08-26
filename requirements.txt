@@ -1,0 +1,7 @@
+Flask
+Flask-SQLalchemy
+Flask-Migrate
+Psycopg2
+alembic
+pytest
+pytest-flask

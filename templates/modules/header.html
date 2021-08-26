@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="nl">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="/static/style/master.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 header p-4 bg-success text-light">
+            <h3>CMS Demo</h3>
+        </div>
+    </div>
+    <di class="row">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Heel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Veel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dooie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Linkjes</a>
+                    </li>
+                    {% if user %}
+                        {% if user.user_role >=2 %}
+                            <li class="nav-item">
+                                <a href="/edit_post" class="nav-link">Maak post</a>
+                            </li>
+                        {% endif %}
+                        {% if user.user_role >= 3 %}
+                            <li class="nav-item">
+                                <a href="/users" class="nav-link">Gebruikers</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a href="/logout" class="nav-link">Uitloggen</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="/login" class="nav-link">Inloggen</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </di>
+</div>

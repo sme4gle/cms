@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+.idea
+bin
+.pytest_cache
+lib

@@ -1,0 +1,52 @@
+{% extends 'master.html' %}
+{% block head_end %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% for post in posts %}
+                    <div class="row">
+                        <div class="col-md-12 bg-light mt-3 p-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>{{ post.title }}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {# for ease of use we are assuming admins and content creators do not create posts with malicious tags which we have not filtered out. #}
+                                    {{ post.short_content | safe }}
+                                </div>
+                            </div>
+                            <div class="row pt-1">
+                                <div class="col-md-6">
+                                    <a href="/post/{{ post.id }}">Lees verder</a> <i class="fas fa-reply"></i> {{ post.comments | length }}
+                                    {% if user and user.user_role == 3 or user.id == post.creator.id %}
+                                        <a href="/edit_post/{{ post.id }}">bewerken</a>  <a href="/delete_post/{{ post.id }}">verwijderen</a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 text-right text-secondary fst-italic">
+                                    {% if post.edited_date > post.created_date %}
+                                        Laatst bijgewerkt op: {{ post.edited_date }} door {{ post.editor.username }}
+                                    {% else %}
+                                        {# Todo: properly format this date. #}
+                                        Geplaatst op: {{ post.created_date }} door {{ post.creator.username }}
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4 sidebar">
+                <div class="row">
+                    <div class="col-md-12 mt-3 pt-2">
+                        Lege sidebar
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

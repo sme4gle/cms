@@ -1,0 +1,50 @@
+{% extends 'master.html' %}
+{% block head_end %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <form action="/edit_post_submit" method="post">
+                    {% if post  %}
+                        <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
+                    {% endif %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="title">Titel</label>
+                                <input type="text" class="form-control md-12" id="title" name="title"
+                                       {% if post %}value="{{ post.title }}"{% endif %}>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="short_description">Korte beschrijving</label>
+                                <textarea name="short_content" id="short_content" class="form-control" cols="30"
+                                          rows="10">{% if post %}{{ post.short_content }}{% endif %}</textarea>
+                            </div>
+                        </div>
+                        <div class="row pb-2">
+                            <div class="col-md-12">
+                                <label for="content">Inhoud</label>
+                                <textarea name="content" id="content" class="form-control" cols="30" rows="10">{% if post %}{{ post.content }}{% endif %}</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-success col-md-12" value="Opslaan">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 sidebar">
+                <div class="row">
+                    <div class="col-md-12 mt-3 pt-2">
+                        Lege sidebar
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
