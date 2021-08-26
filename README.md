@@ -25,3 +25,9 @@ Om deze test te draaien kun je in de root directory van het project het commando
 De applicatie is verre van perfect, en heeft hier en daar nog wat gekke quirks.
 Als ik er wat meer tijd aan had besteed dan de voorgeschreven twee dagdelen zou ik op diverse plekken wat betere foutafhandeling hebben geïmplementeerd.
 Verder zou ik de tests wat hebben uitgebreid zodat de coverage wat omhoog gaat.
+
+### Welke veranderingen zou ik in een real world CMS als eerste oppakken?
+* Betere Unit tests
+* Betere fout afhandeling en http responses (foute requests geven nu een redirect met http code 307 waar je misschien een 404 of 401 verwacht)
+* Degelijkere implementatie van password hashing d.m.v. een library waarmee je snel en makkelijk hashes en salts kan genereren.
+* Ik zou het CMS gedeelte (gebruikerbeheer, postbeheer) lostrekken van de "app" blueprint en hier een apparte blueprint van maken om het beheerbaar te houden. 
